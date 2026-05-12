@@ -5,6 +5,8 @@ import LoginPage from "./pages/Loginpage";
 import RegisterPage from "./pages/Registerpage";
 import DashboardPage from "./pages/Dashboardpage";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 function App() {
   return (
     <BrowserRouter>
@@ -15,7 +17,14 @@ function App() {
 
         <Route path="/register" element={<RegisterPage />} />
 
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
