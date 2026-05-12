@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import type { Room } from "../types/room";
 
 interface Props {
@@ -17,9 +19,12 @@ export default function RoomCard({
         Created by: {room.createdBy}
       </p>
 
-      <button className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+      <Link
+        to={`/room/${room.id}`}
+        className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition inline-block"
+      >
         Join Room
-      </button>
+      </Link>
     </div>
   );
 }
