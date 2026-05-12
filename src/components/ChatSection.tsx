@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+import toast from "react-hot-toast";
+
+import { motion } from "framer-motion";
+
 import {
   addDoc,
   collection,
@@ -7,6 +11,8 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
+
+import { MessageCircle } from "lucide-react";
 
 import { db } from "../firebase/firebase";
 
@@ -64,7 +70,11 @@ export default function ChatSection({
   const sendMessage = async () => {
     if (!user) return;
 
-    if (!text.trim()) return;
+    if (!text.trim()) {
+      toast.error("Message cannot be empty");
+
+      return;
+    }
 
     try {
       await addDoc(
@@ -85,27 +95,45 @@ export default function ChatSection({
       setText("");
     } catch (error) {
       console.error(error);
+
+      toast.error("Failed to send message");
     }
   };
 
   return (
-    <div className="bg-slate-900 p-6 rounded-2xl mt-8">
-      <h2 className="text-2xl font-bold mb-6">
-        Group Chat
-      </h2>
+    <div className="bg-slate-900 p-8 rounded-3xl shadow-xl h-[750px] flex flex-col">
+      
+      <div className="flex items-center gap-3 mb-6">
+        <MessageCircle size={28} />
 
-      <div className="space-y-4 max-h-[400px] overflow-y-auto mb-6">
+        <h2 className="text-2xl font-bold">
+          Group Chat
+        </h2>
+      </div>
+
+      <div className="space-y-4 flex-1 overflow-y-auto mb-6">
         {messages.map((message) => (
-          <div
+          <motion.div
             key={message.id}
-            className="bg-slate-800 p-4 rounded-xl"
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.2,
+            }}
+            className="bg-slate-800 p-4 rounded-2xl border border-slate-700"
           >
             <p className="text-sm text-slate-400 mb-1">
               {message.sender}
             </p>
 
             <p>{message.text}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -117,12 +145,12 @@ export default function ChatSection({
           onChange={(e) =>
             setText(e.target.value)
           }
-          className="flex-1 p-3 rounded-lg bg-slate-800 outline-none"
+          className="flex-1 p-4 rounded-2xl bg-slate-800 outline-none border border-slate-700"
         />
 
         <button
           onClick={sendMessage}
-          className="bg-blue-600 px-6 rounded-lg hover:bg-blue-700 transition"
+          className="bg-blue-600 px-8 rounded-2xl font-semibold hover:bg-blue-700 transition"
         >
           Send
         </button>

@@ -12,6 +12,12 @@ import type { Room } from "../types/room";
 
 import ChatSection from "../components/ChatSection";
 
+import ParticipantsSection from "../components/ParticipantsSection";
+
+import PomodoroTimer from "../components/PomodoroTimer";
+
+import StatusControls from "../components/StatusControls";
+
 export default function RoomPage() {
   const { roomId } = useParams();
 
@@ -75,27 +81,32 @@ export default function RoomPage() {
 
   return (
     <MainLayout>
-      <div className="p-10 text-white">
-        <h1 className="text-5xl font-bold mb-4">
-          {room.roomName}
-        </h1>
-
-        <p className="text-slate-400 text-lg mb-8">
-          Created by: {room.createdBy}
-        </p>
-
-        <div className="bg-slate-900 p-6 rounded-2xl">
-          <h2 className="text-2xl font-semibold mb-4">
-            Study Session
-          </h2>
+      <div className="min-h-screen bg-slate-950 text-white p-8 max-w-[1600px] mx-auto">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">
+            {room.roomName}
+          </h1>
 
           <p className="text-slate-400">
-            Pomodoro timer and realtime chat
-            coming soon...
+            Created by: {room.createdBy}
           </p>
         </div>
 
-        <ChatSection roomId={room.id} />
+        <div className="grid grid-cols-3 gap-8">
+          
+          <div className="col-span-1 space-y-6">
+            <PomodoroTimer roomId={room.id} />
+
+            <StatusControls roomId={room.id} />
+
+            <ParticipantsSection roomId={room.id} />
+          </div>
+
+          <div className="col-span-2">
+            <ChatSection roomId={room.id} />
+          </div>
+
+        </div>
       </div>
     </MainLayout>
   );

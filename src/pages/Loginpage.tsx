@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import MainLayout from "../layouts/Mainlayout";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -21,13 +22,13 @@ export default function LoginPage() {
 
       console.log("Logged In:", userCredential.user);
 
-      alert("Login successful!");
+      toast.success("Login successful!");
 
       navigate("/dashboard");
     } catch (error: any) {
       console.error(error.message);
 
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import MainLayout from "../layouts/Mainlayout";
+import toast from "react-hot-toast";
+
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -19,11 +21,11 @@ export default function RegisterPage() {
 
       console.log("User Registered:", userCredential.user);
 
-      alert("Registration successful!");
+      toast.success("Registration successful");
     } catch (error: any) {
       console.error(error.message);
 
-      alert(error.message);
+      toast.error(error.message);
     }
   };
 
