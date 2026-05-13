@@ -62,8 +62,10 @@ export default function RoomPage() {
   if (loading) {
     return (
       <MainLayout>
-        <div className="p-10 text-white">
-          Loading room...
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <p className="text-slate-400 text-lg">
+            Loading room...
+          </p>
         </div>
       </MainLayout>
     );
@@ -72,8 +74,10 @@ export default function RoomPage() {
   if (!room) {
     return (
       <MainLayout>
-        <div className="p-10 text-white">
-          Room not found
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <p className="text-slate-400 text-lg">
+            Room not found
+          </p>
         </div>
       </MainLayout>
     );
@@ -81,32 +85,45 @@ export default function RoomPage() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-slate-950 text-white p-8 max-w-[1600px] mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">
-            {room.roomName}
-          </h1>
+      <div className="space-y-10">
 
-          <p className="text-slate-400">
-            Created by: {room.createdBy}
-          </p>
+        <div className="flex items-center justify-between">
+
+          <div>
+            <h1 className="text-5xl font-bold tracking-tight mb-3">
+              {room.roomName}
+            </h1>
+
+            <p className="text-slate-400 text-lg">
+              Created by{" "}
+              <span className="text-white">
+                {room.createdBy}
+              </span>
+            </p>
+          </div>
+
         </div>
 
-        <div className="grid grid-cols-3 gap-8">
-          
-          <div className="col-span-1 space-y-6">
+        <div className="grid grid-cols-12 gap-8 items-start">
+
+          <div className="col-span-4 space-y-6 sticky top-28">
+
             <PomodoroTimer roomId={room.id} />
 
             <StatusControls roomId={room.id} />
 
             <ParticipantsSection roomId={room.id} />
+
           </div>
 
-          <div className="col-span-2">
+          <div className="col-span-8">
+
             <ChatSection roomId={room.id} />
+
           </div>
 
         </div>
+
       </div>
     </MainLayout>
   );

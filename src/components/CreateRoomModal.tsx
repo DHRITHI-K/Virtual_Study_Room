@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { Plus } from "lucide-react";
+
 interface Props {
   onCreate: (roomName: string) => void;
 }
@@ -11,31 +13,41 @@ export default function CreateRoomModal({
     useState("");
 
   return (
-    <div className="bg-slate-900 p-6 rounded-2xl mb-8">
-      <h2 className="text-2xl font-bold mb-4">
-        Create Study Room
-      </h2>
+    <div className="space-y-5">
 
-      <input
-        type="text"
-        placeholder="Room Name"
-        value={roomName}
-        onChange={(e) =>
-          setRoomName(e.target.value)
-        }
-        className="w-full p-3 rounded-lg bg-slate-800 mb-4 outline-none"
-      />
+      <div className="flex items-center gap-3">
+        <Plus size={24} />
 
-      <button
-        onClick={() => {
-          onCreate(roomName);
+        <h2 className="text-2xl font-semibold">
+          Create Study Room
+        </h2>
+      </div>
 
-          setRoomName("");
-        }}
-        className="bg-green-600 px-6 py-3 rounded-lg hover:bg-green-700 transition"
-      >
-        Create Room
-      </button>
+      <div className="flex gap-4">
+
+        <input
+          type="text"
+          placeholder="Enter room name..."
+          value={roomName}
+          onChange={(e) =>
+            setRoomName(e.target.value)
+          }
+          className="flex-1 bg-slate-800 border border-slate-700 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 transition"
+        />
+
+        <button
+          onClick={() => {
+            onCreate(roomName);
+
+            setRoomName("");
+          }}
+          className="bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl font-semibold shadow-lg"
+        >
+          Create
+        </button>
+
+      </div>
+
     </div>
   );
 }

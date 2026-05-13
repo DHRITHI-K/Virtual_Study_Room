@@ -133,28 +133,32 @@ export default function PomodoroTimer({
   };
 
   return (
-    <div className="bg-slate-900 p-8 rounded-3xl shadow-xl">
-      <div className="flex items-center gap-3 mb-6">
-        <Timer size={28} />
+    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
 
-        <h2 className="text-2xl font-bold">
-            Shared Pomodoro Timer
+      <div className="flex items-center gap-3 mb-8">
+        <Timer size={26} />
+
+        <h2 className="text-2xl font-semibold">
+          Pomodoro Timer
         </h2>
       </div>
 
-  
+      <div className="text-center mb-10">
 
-      <div className="text-7xl font-bold text-center mb-8">
-        {formatTime(seconds)}
+        <div className="text-8xl font-bold tracking-tight">
+          {formatTime(seconds)}
+        </div>
+
       </div>
 
-      <div className="flex gap-4 justify-center">
+      <div className="flex items-center justify-center gap-4">
+
         {!isRunning ? (
           <button
             onClick={() =>
               updateTimerState(true)
             }
-            className="bg-green-600 px-6 py-3 rounded-lg hover:bg-green-700 transition"
+            className="bg-green-600 hover:bg-green-700 transition px-7 py-3 rounded-2xl font-semibold"
           >
             Start
           </button>
@@ -163,7 +167,7 @@ export default function PomodoroTimer({
             onClick={() =>
               updateTimerState(false)
             }
-            className="bg-yellow-600 px-6 py-3 rounded-lg hover:bg-yellow-700 transition"
+            className="bg-yellow-500 hover:bg-yellow-600 transition px-7 py-3 rounded-2xl font-semibold"
           >
             Pause
           </button>
@@ -176,11 +180,13 @@ export default function PomodoroTimer({
               1500
             )
           }
-          className="bg-red-600 px-6 py-3 rounded-lg hover:bg-red-700 transition"
+          className="bg-slate-800 hover:bg-slate-700 transition px-7 py-3 rounded-2xl font-semibold border border-slate-700"
         >
           Reset
         </button>
+
       </div>
+
     </div>
   );
 }
